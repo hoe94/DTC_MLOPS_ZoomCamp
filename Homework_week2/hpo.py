@@ -26,6 +26,7 @@ def run(data_path, num_trials):
     def objective(params):
         with mlflow.start_run(run_name = 'random-forest-hyperopt'):
             rf = RandomForestRegressor(**params)
+            mlflow.log_params(params)
             rf.fit(X_train, y_train)
             y_pred = rf.predict(X_valid)
             rmse = mean_squared_error(y_valid, y_pred, squared=False)
